@@ -1,8 +1,24 @@
-# React + Vite
+# Admin Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simple React-based admin dashboard that allows you to view, edit, and delete members. It includes features like searching, pagination, and row selection.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Search:** Search members based on name, email, or role.
+- **Pagination:** Navigate through different pages of member data.
+- **Row Selection:** Select individual rows or all rows using checkboxes.
+- **Edit:** Edit member details directly in the table.
+- **Delete:** Delete individual members or selected rows.
+
+
+To get a local copy up and running, follow these simple steps:
+
+### Prerequisites
+
+- Node.js installed
+- npm (Node Package Manager) installed
+- start - npm run dev
+
+### Installation
+
+1. Clone the repository:
