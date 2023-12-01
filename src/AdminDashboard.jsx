@@ -9,8 +9,6 @@ import Back from "./assets/back.png"
 import LeftArrow from "./assets/leftarrow.png"
 import RightArrow from "./assets/rightarrow.png"
 
-
-
 const AdminDashboard = () => {
   const [members, setMembers] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -63,17 +61,18 @@ const AdminDashboard = () => {
       setSelectedRows([...selectedRows, paginatedMembers.find(row => row.id === id)]);
     }
   };
-  
 
   const deleteSelectedRows = () => {
     setMembers(members.filter(member => !selectedRows.some(row => row.id === member.id)));
     setSelectedRows([]);
   };
-  const deleteRows = (id) => {
+
+  const deleteRow = (id) => {
     setMembers((prevMembers) =>
       prevMembers.filter((member) => member.id !== id)
     );
   };
+
   const handleEdit = id => {
     setMembers(members.map(member => {
       if (member.id === id) {
@@ -86,24 +85,26 @@ const AdminDashboard = () => {
   return (
     <div className="AdminDashboard">
       <div className="header">
+        {/* Search input and delete button */}
         <input
-        className='search'
+          className='search'
           type="text"
           placeholder="Enter Value....."
           value={searchTerm}
           onChange={e => handleSearch(e.target.value)}
         />
         <button
-        className="delete-selected"
-        onClick={deleteSelectedRows}
-        disabled={selectedRows.length === 0}
-      >
-      <img src={Trash} style={{width:"15px",height:"15px"}} />
-      </button>
+          className="delete-selected"
+          onClick={deleteSelectedRows}
+          disabled={selectedRows.length === 0}
+        >
+          <img src={Trash} style={{ width: "15px", height: "15px" }} />
+        </button>
       </div>
       <table>
         <thead>
           <tr>
+            {/* Checkbox for selecting all rows */}
             <th>
               <input
                 type="checkbox"
@@ -123,6 +124,7 @@ const AdminDashboard = () => {
               key={member.id}
               className={selectedRows.some(row => row.id === member.id) ? 'selected' : ''}
             >
+              {/* Checkbox for selecting individual row */}
               <td>
                 <input
                   type="checkbox"
@@ -130,21 +132,23 @@ const AdminDashboard = () => {
                   checked={selectedRows.some(row => row.id === member.id)}
                 />
               </td>
+              {/* Editable content for name, email, and role */}
               <td contentEditable={member.editable}>{member.name}</td>
               <td contentEditable={member.editable}>{member.email}</td>
               <td contentEditable={member.editable}>{member.role}</td>
               <td>
+                {/* Edit and Delete buttons */}
                 <button
                   className="edit"
                   onClick={() => handleEdit(member.id)}
                 >
-                  {member.editable ? <img src={Save} style={{width:"15px",height:"15px"}} /> : <img src={editIcon} style={{width:"15px",height:"15px"}} />}
+                  {member.editable ? <img src={Save} style={{ width: "15px", height: "15px" }} /> : <img src={editIcon} style={{ width: "15px", height: "15px" }} />}
                 </button>
                 <button
                   className="delete"
-                  onClick={() => deleteRows(member.id)}
+                  onClick={() => deleteRow(member.id)}
                 >
-                   <img src={Delete} style={{width:"15px",height:"15px"}} />
+                  <img src={Delete} style={{ width: "15px", height: "15px" }} />
                 </button>
               </td>
             </tr>
@@ -153,48 +157,50 @@ const AdminDashboard = () => {
       </table>
       <div className="pagination">
         <div>
-        <p>{selectedRows.length} of {filteredMembers.length} rows selected.</p>  
+          {/* Display selected rows count */}
+          <p>{selectedRows.length} of {filteredMembers.length} rows selected.</p>
         </div>
-       
         <div className='pagination-1'>
-        <div>
-          <p>Page {currentPage} of {totalPages}</p>
-        </div>
-        <button
-          className="first-page"
-          onClick={() => handlePageChange(1)}
-        >
-          <img src={Back} style={{width:"15px",height:"15px"}}/>
-        </button>
-        <button
-          className="previous-page"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-         <img src={LeftArrow} style={{width:"15px",height:"15px"}}/>
-        </button>
-        {Array.from({ length: totalPages }, (_, index) => (
+          {/* Pagination controls */}
+          <div>
+            <p>Page {currentPage} of {totalPages}</p>
+          </div>
           <button
-            key={index + 1}
-            className={currentPage === index + 1 ? 'active' : ''}
-            onClick={() => handlePageChange(index + 1)}
+            className="first-page"
+            onClick={() => handlePageChange(1)}
           >
-            {index + 1}
+            <img src={Back} style={{ width: "15px", height: "15px" }} />
           </button>
-        ))}
-        <button
-          className="next-page"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          <img src={RightArrow} style={{width:"15px",height:"15px"}}/>
-        </button>
-        <button
-          className="last-page"
-          onClick={() => handlePageChange(totalPages)}
-        >
-           <img src={Next} style={{width:"15px",height:"15px"}}/>
-        </button>
+          <button
+            className="previous-page"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <img src={LeftArrow} style={{ width: "15px", height: "15px" }} />
+          </button>
+          {/* Display page numbers */}
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              className={currentPage === index + 1 ? 'active' : ''}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <button
+            className="next-page"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            <img src={RightArrow} style={{ width: "15px", height: "15px" }} />
+          </button>
+          <button
+            className="last-page"
+            onClick={() => handlePageChange(totalPages)}
+          >
+            <img src={Next} style={{ width: "15px", height: "15px" }} />
+          </button>
         </div>
       </div>
     </div>
